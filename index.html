@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2386c8">
+  <meta name="description" content="CariKeras — belajar, membangun project nyata, dan berkembang bersama komunitas.">
+  <link rel="canonical" href="https://cari.cc.cd/">
+  <meta property="og:title" content="CariKeras — Learn. Build. Prove.">
+  <meta property="og:description" content="Ekosistem belajar dan membangun project nyata bersama CariKeras.">
+  <meta property="og:url" content="https://cari.cc.cd/">
+  <title>CariKeras — Learn. Build. Prove.</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/carikeras/ui@latest/dist/carikeras.min.css">
+
+  <style>
+    .cari-site {
+      --cari-blue: #2386c8;
+      --cari-sky: #31a9dc;
+      --cari-yellow: #ffc515;
+      --cari-ink: #20354d;
+      --cari-muted: #64788c;
+      --cari-soft: #f2f7fb;
+    }
+
+    .cari-nav {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 100;
+      background: transparent;
+    }
+
+    .cari-nav .navbar-brand img {
+      width: 160px;
+      height: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .cari-nav .nav-link {
+      color: rgba(255,255,255,.96);
+      font-weight: 750;
+    }
+
+    .cari-nav .nav-link:hover,
+    .cari-nav .nav-link:focus {
+      color: #fff;
+    }
+
+    .cari-nav .navbar-toggler {
+      background: rgba(255,255,255,.95);
+      border-radius: .7rem;
+      padding: .55rem .7rem;
+    }
+
+    .cari-hero {
+      min-height: 690px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 78% 25%, rgba(255,255,255,.13), transparent 25%),
+        linear-gradient(112deg, #31a9dc 0%, #2d98d1 45%, #277db8 100%);
+      overflow: hidden;
+    }
+
+    .cari-hero-inner {
+      padding-top: 150px;
+      padding-bottom: 125px;
+    }
+
+    .cari-hero-title {
+      max-width: 760px;
+      font-size: clamp(2.65rem, 6vw, 5.25rem);
+      line-height: 1.02;
+      font-weight: 900;
+      letter-spacing: -.055em;
+    }
+
+    .cari-hero-title .yellow {
+      color: var(--cari-yellow);
+    }
+
+    .cari-hero-copy {
+      max-width: 720px;
+      color: rgba(255,255,255,.94);
+      font-size: clamp(1.03rem, 1.7vw, 1.2rem);
+      line-height: 1.8;
+    }
+
+    .cari-hero-actions .btn {
+      min-width: 170px;
+    }
+
+    .cari-visual {
+      position: relative;
+      min-height: 430px;
+    }
+
+    .cari-visual-shell {
+      position: absolute;
+      width: min(90%, 420px);
+      aspect-ratio: .86;
+      left: 50%;
+      top: 50%;
+      translate: -46% -48%;
+      background: var(--cari-yellow);
+      border: 9px solid #fff;
+      border-radius: 39% 44% 35% 42%;
+      transform: rotate(-8deg);
+      box-shadow: 0 22px 50px rgba(21,77,116,.22);
+    }
+
+    .cari-visual-shell::after {
+      content: "";
+      position: absolute;
+      inset: 5% 7%;
+      border: 5px solid rgba(255,255,255,.9);
+      border-radius: 36% 42% 32% 45%;
+      transform: rotate(11deg);
+    }
+
+    .cari-visual-mark {
+      position: absolute;
+      z-index: 2;
+      inset: 18% 18%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.96);
+      border-radius: 30% 42% 34% 40%;
+      transform: rotate(5deg);
+      box-shadow: 0 18px 30px rgba(37,91,129,.17);
+    }
+
+    .cari-visual-mark img {
+      width: 52%;
+      transform: rotate(-5deg);
+    }
+
+    .cari-float {
+      position: absolute;
+      z-index: 4;
+      padding: .85rem 1rem;
+      min-width: 155px;
+      border-radius: .75rem;
+      background: #fff;
+      color: #2572aa;
+      box-shadow: 0 12px 30px rgba(26,84,123,.18);
+    }
+
+    .cari-float strong {
+      display: block;
+      font-size: .95rem;
+    }
+
+    .cari-float span {
+      font-size: .78rem;
+      color: #6d8294;
+    }
+
+    .cari-float.a { top: 6%; left: -3%; }
+    .cari-float.b { right: -4%; bottom: 15%; }
+    .cari-float.c { left: 19%; bottom: 1%; }
+
+    .cari-overlap {
+      margin-top: -62px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cari-ecosystem {
+      border-radius: 1.3rem;
+      background: #fff;
+      box-shadow: 0 18px 55px rgba(25,69,101,.14);
+      border: 1px solid rgba(35,134,200,.08);
+    }
+
+    .cari-ecosystem-card {
+      display: block;
+      height: 100%;
+      padding: 1rem;
+      border: 1px solid #d8eaf4;
+      border-radius: 1rem;
+      text-decoration: none;
+      background: #f2f9fd;
+      color: var(--cari-ink);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .cari-ecosystem-card:hover {
+      color: var(--cari-ink);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(31,105,150,.10);
+    }
+
+    .cari-ecosystem-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: .9rem;
+      background: #fff;
+      color: var(--cari-blue);
+      font-weight: 900;
+      margin-bottom: .8rem;
+    }
+
+    .cari-ecosystem-card strong {
+      display: block;
+      font-size: 1.05rem;
+    }
+
+    .cari-ecosystem-card span {
+      display: block;
+      color: var(--cari-muted);
+      font-size: .83rem;
+      margin-top: .25rem;
+      line-height: 1.5;
+    }
+
+    .cari-section {
+      padding: 90px 0;
+    }
+
+    .cari-section.alt {
+      background: #fff;
+    }
+
+    .cari-program-card {
+      height: 100%;
+      border: 1px solid #d9e8f1;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(31,85,119,.06);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .cari-program-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px rgba(31,85,119,.11);
+    }
+
+    .cari-program-cover {
+      min-height: 175px;
+      background: #dff3fc;
+      display: flex;
+      align-items: end;
+      padding: 1rem;
+    }
+
+    .cari-program-cover .label {
+      padding: .4rem .62rem;
+      border-radius: .55rem;
+      background: rgba(255,255,255,.94);
+      color: var(--cari-blue);
+      font-size: .74rem;
+      font-weight: 850;
+    }
+
+    .cari-program-body {
+      padding: 1.15rem;
+    }
+
+    .cari-program-body h3 {
+      font-size: 1.13rem;
+      font-weight: 850;
+      letter-spacing: -.02em;
+    }
+
+    .cari-program-body p {
+      margin-bottom: 0;
+      color: var(--cari-muted);
+      line-height: 1.65;
+    }
+
+    .cari-project-strip {
+      border-radius: 1.2rem;
+      overflow: hidden;
+      background: var(--cari-blue);
+      color: #fff;
+    }
+
+    .cari-project-copy {
+      padding: clamp(1.6rem, 4vw, 3rem);
+    }
+
+    .cari-project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      min-height: 100%;
+    }
+
+    .cari-project-grid > div {
+      min-height: 150px;
+      padding: 1rem;
+      background: #e8f6fd;
+      color: var(--cari-ink);
+      border: 1px solid #fff;
+      display: flex;
+      align-items: end;
+      font-weight: 850;
+    }
+
+    .cari-step {
+      position: relative;
+      height: 100%;
+      padding: 1.35rem;
+      border: 1px solid #dbeaf2;
+      border-radius: 1rem;
+      background: #fff;
+    }
+
+    .cari-step-number {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: .8rem;
+      background: var(--cari-yellow);
+      color: var(--cari-ink);
+      font-weight: 900;
+    }
+
+    .cari-step h3 {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      font-weight: 850;
+    }
+
+    .cari-step p {
+      margin-bottom: 0;
+      color: var(--cari-muted);
+      line-height: 1.65;
+    }
+
+    .cari-cta {
+      color: #fff;
+      background:
+        radial-gradient(circle at 85% 25%, rgba(255,255,255,.14), transparent 22%),
+        linear-gradient(110deg, #31a9dc 0%, #2386c8 65%, #206ca2 100%);
+    }
+
+    .cari-footer {
+      background: #18354f;
+      color: rgba(255,255,255,.82);
+    }
+
+    .cari-footer a {
+      color: rgba(255,255,255,.9);
+      text-decoration: none;
+    }
+
+    .cari-footer a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 991.98px) {
+      .cari-nav {
+        position: relative;
+        background: #2386c8;
+      }
+
+      .cari-nav .navbar-brand img {
+        width: 145px;
+      }
+
+      .cari-hero {
+        min-height: 0;
+      }
+
+      .cari-hero-inner {
+        padding-top: 82px;
+        padding-bottom: 95px;
+      }
+
+      .cari-visual {
+        min-height: 360px;
+      }
+
+      .cari-float.a { left: 0; }
+      .cari-float.b { right: 0; }
+    }
+
+    @media (max-width: 575.98px) {
+      .cari-hero-title {
+        font-size: 2.75rem;
+      }
+
+      .cari-hero-actions {
+        flex-direction: column;
+      }
+
+      .cari-hero-actions .btn {
+        width: 100%;
+      }
+
+      .cari-visual {
+        min-height: 300px;
+      }
+
+      .cari-float {
+        min-width: 132px;
+        padding: .65rem .75rem;
+      }
+
+      .cari-float strong {
+        font-size: .8rem;
+      }
+
+      .cari-float span {
+        font-size: .67rem;
+      }
+
+      .cari-float.a { top: 1%; left: -2%; }
+      .cari-float.b { right: -2%; bottom: 10%; }
+      .cari-float.c { left: 8%; bottom: -1%; }
+    }
+  </style>
+</head>
+<body class="cari-site">
+
+  <header class="navbar navbar-expand-lg cari-nav">
+    <div class="container-xl">
+      <a class="navbar-brand" href="https://cari.cc.cd/" aria-label="CariKeras">
+        <img src="https://cdn.jsdelivr.net/gh/carikeras/assets@latest/brand/carikeras-wordmark.svg" alt="CariKeras">
+      </a>
+
+      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Buka menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav align-items-lg-center ms-lg-4 me-lg-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-lg-3" href="#" role="button" data-bs-toggle="dropdown">Programs</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://academy.cari.cc.cd/">Academy</a></li>
+              <li><a class="dropdown-item" href="https://labs.cari.cc.cd/">Labs</a></li>
+              <li><a class="dropdown-item" href="https://challenges.cari.cc.cd/">Challenges</a></li>
+              <li><a class="dropdown-item" href="https://projects.cari.cc.cd/">Projects</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-lg-3" href="#" role="button" data-bs-toggle="dropdown">School Solutions</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://schools.cari.cc.cd/">Schools</a></li>
+              <li><a class="dropdown-item" href="https://campus.cari.cc.cd/">Campus</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-lg-3" href="#" role="button" data-bs-toggle="dropdown">Corporate Solutions</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://talent.cari.cc.cd/">Talent</a></li>
+              <li><a class="dropdown-item" href="https://hiring.cari.cc.cd/">Hiring</a></li>
+              <li><a class="dropdown-item" href="https://apprenticeship.cari.cc.cd/">Apprenticeship</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-lg-3" href="#" role="button" data-bs-toggle="dropdown">Hub</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://community.cari.cc.cd/">Community</a></li>
+              <li><a class="dropdown-item" href="https://showcase.cari.cc.cd/">Showcase</a></li>
+              <li><a class="dropdown-item" href="https://events.cari.cc.cd/">Events</a></li>
+              <li><a class="dropdown-item" href="https://docs.cari.cc.cd/">Docs</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-lg-center gap-2 mt-3 mt-lg-0">
+          <button class="btn btn-light ck-btn" type="button" data-cari-search aria-label="Cari">
+            <span aria-hidden="true">⌕</span>
+          </button>
+          <a class="btn btn-outline-light ck-btn" href="https://id.cari.cc.cd/">Masuk</a>
+          <a class="btn ck-btn ck-btn-yellow" href="https://id.cari.cc.cd/register">Daftar</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="cari-hero">
+      <div class="container-xl cari-hero-inner">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <div class="small fw-bold text-uppercase text-white-50 mb-3">CariKeras Ecosystem</div>
+            <h1 class="cari-hero-title mb-4">
+              Belajar skill digital,
+              <span class="yellow">bikin sesuatu yang nyata.</span>
+            </h1>
+            <p class="cari-hero-copy mb-0">
+              Tempat untuk belajar, bereksperimen, mengerjakan project, berkontribusi
+              ke open source, membangun portfolio, dan terhubung dengan komunitas.
+            </p>
+            <div class="d-flex flex-wrap gap-3 cari-hero-actions mt-4">
+              <a class="btn ck-btn ck-btn-yellow" href="https://academy.cari.cc.cd/">Mulai Belajar</a>
+              <a class="btn ck-btn ck-btn-light" href="https://projects.cari.cc.cd/">Lihat Projects</a>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="cari-visual" aria-hidden="true">
+              <div class="cari-visual-shell"></div>
+              <div class="cari-visual-mark">
+                <img src="https://cdn.jsdelivr.net/gh/carikeras/assets@latest/brand/carikeras-mark.svg" alt="">
+              </div>
+
+              <div class="cari-float a">
+                <strong>Belajar + praktik</strong>
+                <span>Course dan hands-on project</span>
+              </div>
+              <div class="cari-float b">
+                <strong>Built with GitHub</strong>
+                <span>Contribution jadi bukti karya</span>
+              </div>
+              <div class="cari-float c">
+                <strong>Skill Passport</strong>
+                <span>Catat progress dan evidence</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cari-overlap">
+      <div class="container-xl">
+        <div class="cari-ecosystem p-3 p-lg-4">
+          <div class="text-center px-lg-5 py-3 py-lg-4">
+            <div class="small fw-bold text-uppercase text-primary">Ekosistem CariKeras</div>
+            <h2 class="ck-section-title mt-2 mb-3">Satu tempat untuk belajar, membangun, dan berkembang.</h2>
+            <p class="ck-section-subtitle mx-auto mb-0">
+              Setiap layanan hidup sebagai aplikasi sendiri, tetapi tetap terhubung lewat identitas,
+              data, dan bahasa visual CariKeras.
+            </p>
+          </div>
+
+          <div class="row g-3 mt-2">
+            <div class="col-6 col-lg-3">
+              <a class="cari-ecosystem-card" href="https://academy.cari.cc.cd/">
+                <div class="cari-ecosystem-icon">A</div>
+                <strong>Academy</strong>
+                <span>Belajar lewat course dan project.</span>
+              </a>
+            </div>
+            <div class="col-6 col-lg-3">
+              <a class="cari-ecosystem-card" href="https://labs.cari.cc.cd/">
+                <div class="cari-ecosystem-icon">L</div>
+                <strong>Labs</strong>
+                <span>Eksperimen dan hands-on tasks.</span>
+              </a>
+            </div>
+            <div class="col-6 col-lg-3">
+              <a class="cari-ecosystem-card" href="https://projects.cari.cc.cd/">
+                <div class="cari-ecosystem-icon">P</div>
+                <strong>Projects</strong>
+                <span>Bangun karya nyata bersama.</span>
+              </a>
+            </div>
+            <div class="col-6 col-lg-3">
+              <a class="cari-ecosystem-card" href="https://community.cari.cc.cd/">
+                <div class="cari-ecosystem-icon">C</div>
+                <strong>Community</strong>
+                <span>Temukan orang dan event.</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cari-section">
+      <div class="container-xl">
+        <div class="row align-items-end g-4 mb-4">
+          <div class="col-lg-8">
+            <div class="small fw-bold text-uppercase text-primary">Featured Programs</div>
+            <h2 class="ck-section-title mt-2 mb-2">Mulai dari yang ingin kamu bangun.</h2>
+            <p class="ck-section-subtitle mb-0">Program dan learning path yang membawa kamu dari materi ke karya.</p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a class="btn ck-btn ck-btn-primary" href="https://academy.cari.cc.cd/">Jelajahi Academy</a>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-3">
+            <article class="cari-program-card">
+              <div class="cari-program-cover"><span class="label">Web Development</span></div>
+              <div class="cari-program-body">
+                <h3>Frontend Developer</h3>
+                <p>HTML, CSS, JavaScript, Git, UI, dan deployment.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="cari-program-card">
+              <div class="cari-program-cover"><span class="label">Backend & API</span></div>
+              <div class="cari-program-body">
+                <h3>Build an API</h3>
+                <p>Belajar membuat API dan menghubungkannya ke aplikasi.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="cari-program-card">
+              <div class="cari-program-cover"><span class="label">Open Source</span></div>
+              <div class="cari-program-body">
+                <h3>GitHub Contributor</h3>
+                <p>Issue, branch, pull request, review, dan kontribusi nyata.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="cari-program-card">
+              <div class="cari-program-cover"><span class="label">Game Development</span></div>
+              <div class="cari-program-body">
+                <h3>Make a Game</h3>
+                <p>Rancang, bangun, uji, lalu publish game pertamamu.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cari-section alt">
+      <div class="container-xl">
+        <div class="cari-project-strip">
+          <div class="row g-0 align-items-stretch">
+            <div class="col-lg-6">
+              <div class="cari-project-copy">
+                <div class="small fw-bold text-uppercase text-white-50">Build with others</div>
+                <h2 class="display-6 fw-bold mt-2">Project komunitas yang bisa benar-benar kamu kerjakan.</h2>
+                <p class="mt-3 mb-4 text-white-50">
+                  Pilih project, baca task, kontribusi lewat GitHub, lalu kumpulkan hasilnya sebagai evidence.
+                </p>
+                <a class="btn ck-btn ck-btn-yellow" href="https://projects.cari.cc.cd/">Jelajahi Projects</a>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="cari-project-grid">
+                <div>Developer Tools</div>
+                <div>Games & Mods</div>
+                <div>Web & API</div>
+                <div>Open Source</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cari-section">
+      <div class="container-xl">
+        <div class="text-center mb-5">
+          <div class="small fw-bold text-uppercase text-primary">Cara Kerja</div>
+          <h2 class="ck-section-title mt-2">Learn. Build. Prove.</h2>
+          <p class="ck-section-subtitle mx-auto mb-0">Progress kamu dibangun dari hal yang benar-benar kamu kerjakan.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <article class="cari-step">
+              <div class="cari-step-number">01</div>
+              <h3>Learn</h3>
+              <p>Ikuti course, lab, tutorial, dan challenge sesuai skill yang ingin kamu bangun.</p>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="cari-step">
+              <div class="cari-step-number">02</div>
+              <h3>Build</h3>
+              <p>Kerjakan project, berkontribusi ke repository, dan berkolaborasi dengan orang lain.</p>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="cari-step">
+              <div class="cari-step-number">03</div>
+              <h3>Prove</h3>
+              <p>Simpan hasil belajar sebagai project, evidence, achievement, dan skill passport.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cari-section cari-cta">
+      <div class="container-xl text-center">
+        <div class="small fw-bold text-uppercase text-white-50">Join CariKeras</div>
+        <h2 class="display-5 fw-bold mt-2">Punya ide? Bikin bareng.</h2>
+        <p class="mx-auto mt-3 mb-4 text-white-50" style="max-width: 680px;">
+          Masuk ke komunitas, pilih project, dan mulai membangun sesuatu yang bisa kamu tunjukkan.
+        </p>
+        <div class="d-flex flex-wrap gap-2 justify-content-center">
+          <a class="btn ck-btn ck-btn-yellow" href="https://id.cari.cc.cd/register">Daftar</a>
+          <a class="btn ck-btn ck-btn-light" href="https://community.cari.cc.cd/">Masuk Community</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="cari-footer py-5">
+    <div class="container-xl">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <a class="d-inline-flex align-items-center" href="https://cari.cc.cd/">
+            <img src="https://cdn.jsdelivr.net/gh/carikeras/assets@latest/brand/carikeras-wordmark.svg"
+              alt="CariKeras" width="160" style="filter: brightness(0) invert(1);">
+          </a>
+          <p class="mt-3 mb-0" style="max-width: 560px;">
+            Community-driven learning and building ecosystem.
+          </p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="fw-bold text-white mb-2">Learn</div>
+          <a class="d-block mb-2" href="https://academy.cari.cc.cd/">Academy</a>
+          <a class="d-block mb-2" href="https://labs.cari.cc.cd/">Labs</a>
+          <a class="d-block mb-2" href="https://challenges.cari.cc.cd/">Challenges</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="fw-bold text-white mb-2">Build</div>
+          <a class="d-block mb-2" href="https://projects.cari.cc.cd/">Projects</a>
+          <a class="d-block mb-2" href="https://showcase.cari.cc.cd/">Showcase</a>
+          <a class="d-block mb-2" href="https://events.cari.cc.cd/">Events</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="fw-bold text-white mb-2">Connect</div>
+          <a class="d-block mb-2" href="https://community.cari.cc.cd/">Community</a>
+          <a class="d-block mb-2" href="https://talent.cari.cc.cd/">Talent</a>
+          <a class="d-block mb-2" href="https://github.com/carikeras">GitHub</a>
+        </div>
+      </div>
+
+      <hr class="my-4 border-light opacity-25">
+      <div class="small d-flex flex-wrap justify-content-between gap-2">
+        <span>© <span data-year>2026</span> CariKeras</span>
+        <a href="https://github.com/carikeras/cari">Source code</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
