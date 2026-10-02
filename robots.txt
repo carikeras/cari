@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cari.cc.cd/sitemap.xml
